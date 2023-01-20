@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<javaee:taglib version="2.1"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-jsptaglibrary_2_1.xsd ">
+	<javaee:tlib-version>0.1</javaee:tlib-version>
+	<javaee:short-name>CustomTag</javaee:short-name>
+
+	<javaee:tag-file>
+		<javaee:name>navbar</javaee:name>
+		<javaee:path>WEB-INF/tags/navbar.tag</javaee:path>
+	</javaee:tag-file>
+
+	<javaee:tag-file>
+		<javaee:name>logo</javaee:name>
+		<javaee:path>WEB-INF/tags/logo.tag</javaee:path>
+	</javaee:tag-file>
+
+	<javaee:tag-file>
+		<javaee:name>footer</javaee:name>
+		<javaee:path>WEB-INF/tags/footer.tag</javaee:path>
+	</javaee:tag-file>
+
+</javaee:taglib>
