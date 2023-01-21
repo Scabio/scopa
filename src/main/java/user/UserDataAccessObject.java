@@ -5,12 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 import utils.db.Db;
 import utils.db.PooledConnectionPool;
 
 public class UserDataAccessObject implements UserDataAccessObjectInterface {
 	private String create = "INSERT INTO users VALUES (?, crypt(?, gen_salt('bf') ) );";
 	private String read = "SELECT password=crypt(?,(SELECT password FROM users WHERE name=? )) AS pswmatch FROM users WHERE name = ?;";
+	static Logger log = Logger.getLogger(UserDataAccessObject.class.getName());
 	
 	@Override
 	public void createUser(String name, String password) {
@@ -21,7 +24,9 @@ public class UserDataAccessObject implements UserDataAccessObjectInterface {
 			ps.setString(1, name);
 			ps.setString(2, password);
 			if (ps.execute()) {
-				// TODO inserire log a tomcat
+				log.debug("Utente creato");
+			} else {
+				log.debug("Utente non creato");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -34,9 +39,12 @@ public class UserDataAccessObject implements UserDataAccessObjectInterface {
 		try {
 			Connection conn = PooledConnectionPool.getConnection().getConn();
 			PreparedStatement ps = conn.prepareStatement(read);
+			ps.setString(1, password);
+			ps.setString(2, name);
+			ps.setString(0, name);
 			result = ps.executeQuery();
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (SQLException e) {
+			
 		}
 		result.next();
 		if(result.getBoolean("pswmatch")) {
