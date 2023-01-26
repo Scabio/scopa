@@ -44,4 +44,9 @@
 		<servlet-name>User</servlet-name>
 	</filter-mapping>
 
+	<context-param>
+		<param-name>log4jConfiguration</param-name>
+		<param-value>./WEB-INF/resources/log4j.properties</param-value>
+	</context-param>
+
 </web-app>

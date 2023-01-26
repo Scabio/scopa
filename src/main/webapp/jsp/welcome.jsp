@@ -17,12 +17,12 @@
 	<div class="Main">
 		<div class="Form">
 			Log in:
-			<form action="/home" method="post">
+			<form action="./home" method="post">
 				<div class="Input">
-					<input type="text" placeholder="Nome">
+					<input type="text" placeholder="Nome" name="name">
 				</div>
 				<div class="Input">
-					<input type="password" placeholder="Password">
+					<input type="password" placeholder="Password" name="password">
 				</div>
 				<div class="Input">
 					<input type="submit" value="Accedi">
@@ -31,7 +31,7 @@
 		</div>
 		<div class="Form">
 			Sign in:
-			<form action="/welcome" method="post">
+			<form action="./welcome" method="post">
 				<div class="Input">
 					<input type="text" placeholder="Nome">
 				</div>
