@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
-
-
 public class UserServletFront extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -48,6 +45,8 @@ public class UserServletFront extends HttpServlet {
 		final String password = request.getParameter("password");
 		final Logger log = LogManager.getLogger(UserServletFront.class);
 		final UserDAO userDAO = new UserDAO();
+		final UserService userService = new UserService();
+		boolean isLogIn;
 		User user = null;
 		/*
 		 * Controlli coerenza parametri
@@ -57,21 +56,14 @@ public class UserServletFront extends HttpServlet {
 			request.getRequestDispatcher("./jsp/welcome.jsp").forward(request, response);
 		}
 
-		try {
-			user = userDAO.readUser(name, password);
-		} catch (SQLException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			log.debug("Cannot read user");
-			e.printStackTrace();
-		}
-
-		if (user != null) {
-			log.debug("Utente loggato");
+		user = userDAO.readUser(name, password);
+		isLogIn = userService.isLogIn(name, password);
+		if (isLogIn) {
 			response.addCookie(new Cookie("name", user.getName()));
-			request.getRequestDispatcher("./jsp/home.jsp");
+			request.getRequestDispatcher("./jsp/home.jsp").forward(request, response);
 		} else {
-			log.debug("Utente non loggato");
-			request.getRequestDispatcher("./jsp/welcome.jsp");
+			
+			request.getRequestDispatcher("./jsp/index.jsp").forward(request, response);
 		}
 
 	}
